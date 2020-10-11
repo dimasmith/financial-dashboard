@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  database:
+    image: library/mysql:8.0
+    environment:
+      MYSQL_DATABASE: finance
+      MYSQL_RANDOM_ROOT_PASSWORD: "true"
+      MYSQL_USER: finance
+      MYSQL_PASSWORD: s3cr3t
+    ports:
+    - 3306:3306
