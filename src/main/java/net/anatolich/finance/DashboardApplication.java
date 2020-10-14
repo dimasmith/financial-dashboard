@@ -1,10 +1,11 @@
 package net.anatolich.finance;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import net.anatolich.finance.application.ui.javafx.DashboardController;
 import net.anatolich.finance.cards.application.CardManagementService;
 import net.anatolich.finance.cards.domain.CreditCardRepository;
 import net.anatolich.finance.cards.infra.hibernate.HibernateCreditCardRepository;
@@ -37,19 +38,14 @@ public class DashboardApplication extends Application {
     }
 
     @Override
-    public void start(Stage stage) {
-        final var layout = new VBox();
-        final Scene scene = new Scene(layout);
+    public void start(Stage stage) throws Exception {
+        final var screenLoader = new FXMLLoader(DashboardController.class.getResource("dashboard.fxml"));
+        final Parent dashboardRoot = screenLoader.load();
+        final Scene scene = new Scene(dashboardRoot);
         stage.setScene(scene);
         stage.show();
-
-        cardManagementService.displayCards()
-            .forEach(card -> {
-                layout.getChildren().add(
-                    new Label(card.alias()));
-                layout.getChildren().add(
-                    new Label(card.readableNumber()));
-            });
+        final DashboardController controller = screenLoader.getController();
+        controller.displayCards(cardManagementService.displayCards());
     }
 
     public static void main(String[] args) {

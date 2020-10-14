@@ -13,7 +13,8 @@ module net.anatolich.finance {
     requires commons.beanutils;
     requires org.flywaydb.core;
 
-    opens net.anatolich.finance to javafx.fxml;
+    opens net.anatolich.finance.application.ui.javafx to javafx.fxml;
+    opens net.anatolich.finance.cards.infra.ui to javafx.fxml;
     opens net.anatolich.finance.cards.domain to org.hibernate.orm.core;
     opens db.migration;
     exports net.anatolich.finance;
